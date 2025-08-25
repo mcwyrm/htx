@@ -10,13 +10,7 @@ namespace GridCounter
             int count = 0;
             for (int countSize = 1; countSize <= gridSize; countSize++)
             {
-                for (int vertical = 0; vertical <= gridSize - countSize; vertical++)
-                {
-                    for (int horizontal = 0; horizontal <= gridSize - countSize; horizontal++)
-                    {
-                        count++;
-                    }
-                }
+                count += countSize * countSize;
             }
             return count;
         }
