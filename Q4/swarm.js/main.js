@@ -47,7 +47,8 @@ function init() {
     container = document.getElementById( 'container' );
 
     camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 4000 );
-    camera.position.z = 1750;
+    camera.position.setZ(2000);
+    camera.position.setY(500);
 
     scene = new THREE.Scene();
     group = new THREE.Group();
@@ -116,6 +117,9 @@ function init() {
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.setAnimationLoop( animate );
     container.appendChild( renderer.domElement );
+
+    const controls = new OrbitControls(camera, container);
+    controls.update();
 
     //
 
@@ -227,8 +231,7 @@ function Rule_AvoidBoids(subject, restOfSwarm){
     let avoidVector = new THREE.Vector3( 0, 0, 0);
     for (const otherBoid of restOfSwarm){
         if(subject.position.distanceTo(otherBoid.position) < effectController.boidSpace){
-            var subjectPosition = new THREE.Vector3( 0, 0, 0).copy(subject.position);
-            avoidVector = avoidVector.add(subjectPosition.sub(otherBoid.position));
+            avoidVector = avoidVector.add(subject.position.clone().sub(otherBoid.position));
         }
     }
     return avoidVector;
@@ -265,6 +268,6 @@ function GetRandomPoint(){
 }
 
 function NewAttractiveSpot(){
-    const normal = new THREE.Vector3(0, 0, 1);
+    const normal = new THREE.Vector3(0, 1, 0);
     return new THREE.Vector3( Math.random() * r / 2, Math.random() * r / 2, Math.random() * r / 2).projectOnPlane(normal);
 }
