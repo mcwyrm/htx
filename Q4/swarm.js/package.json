@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "poisson-process": "^1.0.1",
     "three": "^0.179.1"
   },
   "devDependencies": {
